@@ -62,5 +62,3 @@ Thumbs.db
 /**/appsettings.development.json
 /**/readme_comandos.md
 /src/**/appsettings.Development.json
-
-obj/
