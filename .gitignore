@@ -1,0 +1,65 @@
+# Arquivos gerados pelo Visual Studio
+.vscode/
+bin/
+obj/
+
+# Arquivos de dependências do NuGet
+packages/
+
+# Arquivos gerados pela compilação do .NET
+*.dll
+*.exe
+*.pdb
+*.dll.config
+
+# Logs e arquivos temporários
+*.log
+*.log.*
+*._ReSharper*
+
+# Arquivos de usuário do Visual Studio
+*.user
+*.user.*
+
+# Cache do Visual Studio
+.vscode/
+.vs/
+.vscode/
+.vscode-test/
+
+# Arquivos de configuração do Rider
+.idea/
+*.sln.iml
+
+# Arquivos de backup
+*~
+*.bak
+*.backup
+
+# Arquivos do Mac OS
+.DS_Store
+
+# Arquivos de configuração do Windows
+Thumbs.db
+Desktop.ini
+
+# Arquivos de compilação do Mono
+mono_crash.*
+
+# Arquivos de log do NUnit
+TestResult.xml
+
+# Arquivos do Unity
+Library/
+Temp/
+UserSettings.asset
+
+# Arquivos de configuração de análise estática
+*.sln.DotSettings.user
+*.sln.DotSettings
+
+# Arquivos de configuração do JetBrains Rider
+.idea/
+
+# Arquivos de configuração do Visual Studio Code
+.vscode/
