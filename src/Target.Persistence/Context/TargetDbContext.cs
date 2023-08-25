@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Target.Domain.Models;
 
 namespace Target.Persistence
 {
@@ -6,6 +7,11 @@ namespace Target.Persistence
     {
         public TargetDbContext(DbContextOptions<TargetDbContext> options) : base(options) {}
 
+        public DbSet<Imagens> Imagens { get; set; }
+        public DbSet<Relatorio> Relatorio { get; set; }
+        public DbSet<Usuarios> Usuarios { get; set; }
+        public DbSet<Tecnico> Tecnico { get; set; }
+        public DbSet<Produtor> Produtor { get; set; } 
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
