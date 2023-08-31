@@ -1,8 +1,9 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
+using Target.Persistence;
 
-namespace Target.Persistence
+namespace Target.Application.Config
 {
     public static class TargetDatabaseConfig
     {

@@ -1,5 +1,4 @@
-using Target.Persistence.Config;
-using Target.Persistence;
+using Target.Application.Config;
 
 var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
@@ -27,13 +26,17 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
+    app.UseDeveloperExceptionPage();
     app.UseSwagger();
-    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v3/swagger.json", "Target.API v1"));
+    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Target.API v1"));
 }
 
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+app.UseCors(x => x.AllowAnyHeader()
+                    .AllowAnyMethod()
+                    .AllowAnyOrigin());
 
 app.MapControllers();
 
