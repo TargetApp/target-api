@@ -1,8 +1,9 @@
-namespace Target.Domain.Models
+using System;
+
+namespace Target.Application.Dtos
 {
-    public class Usuarios
+    public class UsuarioDto
     {
-        public int Id { get; set; }
         public string TipoCadastro { get; set; }
         public string TipoConta { get; set; }
         public string Email { get; set; }

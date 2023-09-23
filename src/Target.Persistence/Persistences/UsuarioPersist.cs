@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using Target.Domain.Models;
 using Target.Persistence.Interfaces;
 
@@ -14,12 +15,23 @@ namespace Target.Persistence.Persistences
 
         public async Task<List<Usuarios>> ObterListaUsuariosAsync()
         {
-            throw new NotImplementedException();
+            var query = (
+                from u in _context.Usuarios
+                select u
+            );
+
+            return await query.ToListAsync();
         }
 
         public async Task<Usuarios> ObterUsuarioPorIdAsync(int id)
         {
-            throw new NotImplementedException();
+            var query = (
+                from u in _context.Usuarios
+                where u.Id == id
+                select u
+            );
+
+            return await query.FirstOrDefaultAsync();
         }
 
     }
