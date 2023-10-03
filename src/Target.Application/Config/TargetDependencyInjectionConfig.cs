@@ -23,6 +23,7 @@ public static class TargetDependencyInjectionConfig
 
         // Services Dependency Injection
         services.AddScoped<IUsuarioService, UsuarioService>();
+        services.AddScoped<ITokenService, TokenService>();
 
         return services;
     }

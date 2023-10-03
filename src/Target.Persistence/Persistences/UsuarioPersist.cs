@@ -13,27 +13,38 @@ namespace Target.Persistence.Persistences
             _context = context;
         }
 
-        public async Task<List<Usuarios>> ObterListaUsuariosAsync()
+        public async Task<Usuarios> ObterUsuarioParametroAsync(string param)
         {
             var query = (
                 from u in _context.Usuarios
-                select u
-            );
-
-            return await query.ToListAsync();
-        }
-
-        public async Task<Usuarios> ObterUsuarioPorIdAsync(int id)
-        {
-            var query = (
-                from u in _context.Usuarios
-                where u.Id == id
+                where u.Email == param || u.Telefone == param
                 select u
             );
 
             return await query.FirstOrDefaultAsync();
         }
 
+        public async Task<Usuarios> ObterUsuarioPorIdAsync(int usuarioId)
+        {
+            var query = (
+                from u in _context.Usuarios
+                where u.Id == usuarioId
+                select u
+            );
+
+            return await query.FirstOrDefaultAsync();
+        }
+
+        public async Task<Usuarios> ObterUsuarioCadastradoAsync(string email, string telefone)
+        {
+            var query = (
+                from u in _context.Usuarios
+                where u.Email == email || u.Telefone == telefone
+                select u
+            );
+
+            return await query.FirstOrDefaultAsync();
+        }
     }
 
 }

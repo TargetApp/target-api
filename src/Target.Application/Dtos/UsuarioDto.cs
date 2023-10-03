@@ -10,5 +10,11 @@ namespace Target.Application.Dtos
         public string Telefone { get; set; }
         public string Nome { get; set; }
         public string Endereco { get; set; }
+        public string Token { get; set; }
+        public string TokenLogin { get; set; }
+        public int TokenTentativas { get; set; }
+        public DateTime DataAtualizacaoToken { get; set; }
+        public DateTime DataCriacaoUsuario { get; set; }
+        public DateTime DataAtualizacaoUsuario { get; set; }
     }
 }

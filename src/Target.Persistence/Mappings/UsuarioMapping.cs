@@ -12,23 +12,34 @@ namespace Target.Persistence.Mappings
             builder.Property(p => p.Id).ValueGeneratedOnAdd();
 
             builder.Property(p => p.TipoCadastro)
-                .IsRequired()
                 .HasColumnName("TIPO_CADASTRO");
 
             builder.Property(p => p.TipoConta)
-                .IsRequired()
                 .HasColumnName("TIPO_CONTA");
 
             builder.Property(p => p.Email)
                 .HasColumnName("EMAIL");
 
             builder.Property(p => p.Telefone)
-                .IsRequired()
                 .HasColumnName("TELEFONE");
 
             builder.Property(p => p.Nome)
-                .IsRequired()
                 .HasColumnName("NOME");
+
+            builder.Property(p => p.TokenLogin)
+                .HasColumnName("TOKEN_LOGIN");
+
+            builder.Property(p => p.TokenTentativas)
+                .HasColumnName("TOKEN_TENTATIVAS");
+
+            builder.Property(p => p.DataAtualizacaoToken)
+                .HasColumnName("DATA_ATUALIZACAO_TOKEN");
+
+            builder.Property(p => p.DataAtualizacaoUsuario)
+                .HasColumnName("DATA_ATUALIZACAO_USUARIO");
+
+            builder.Property(p => p.DataCriacaoUsuario)
+                .HasColumnName("DATA_CRIACAO_USUARIO");
 
             builder.ToTable("USUARIOS");
         }
