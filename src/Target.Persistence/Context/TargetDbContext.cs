@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Target.Domain.Models;
+using Target.Persistence.Mappings;
 
 namespace Target.Persistence
 {

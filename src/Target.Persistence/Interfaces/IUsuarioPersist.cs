@@ -4,7 +4,8 @@ namespace Target.Persistence.Interfaces
 {
     public interface IUsuarioPersist
     {
-        Task<List<Usuarios>> ObterListaUsuariosAsync();
-        Task<Usuarios> ObterUsuarioPorIdAsync(int id);
+        Task<Usuarios> ObterUsuarioParametroAsync(string param);
+        Task<Usuarios> ObterUsuarioPorIdAsync(int usuarioId);
+        Task<Usuarios> ObterUsuarioCadastradoAsync(string email, string telefone);
     }
 }
