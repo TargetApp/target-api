@@ -1,6 +1,5 @@
-using System;
 using AutoMapper;
-using Target.Application.Dtos;
+using Target.Domain.Dtos;
 using Target.Domain.Models;
 
 namespace Target.Application.Helpers
@@ -11,6 +10,8 @@ namespace Target.Application.Helpers
         {
             CreateMap<UsuarioDto, Usuarios>().ReverseMap();
             CreateMap<UsuarioLoginDto, Usuarios>().ReverseMap();
+            CreateMap<TecnicoDto, Tecnico>().ReverseMap();
+            CreateMap<RelatorioDto, Relatorio>().ReverseMap();
         }
     }
 }

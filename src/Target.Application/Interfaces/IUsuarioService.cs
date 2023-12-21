@@ -1,4 +1,4 @@
-using Target.Application.Dtos;
+using Target.Domain.Dtos;
 using Target.Application.Helpers;
 using Target.Domain.Models;
 
@@ -10,11 +10,11 @@ namespace Target.Application.Interfaces
         Task<Usuarios> AtualizarUsuario(int usuarioId, UsuarioUpdateDto model);
         Task<Usuarios> AtualizarTokenLogin(int usuarioId);
         void IncrementarTokenTentativas(int usuarioId);
-        Task<TokenValidations> VerificaTokenLogin(UsuarioDto usuario, string tokenLogin);
+        Task<TokenValidations> VerificaTokenLogin(Usuarios usuario, string tokenLogin);
         Task<bool> DeletarUsuario(int usuarioId);
         Task<Usuarios> ObterUsuarioParametro(string param);
         Task<Usuarios> ObterUsuarioCadastradoAsync(string email, string telefone);
-        Task<UsuarioDto> ObterUsuarioPorIdAsync(int usuarioId);
+        Task<Usuarios> ObterUsuarioPorIdAsync(int usuarioId);
         Task<bool> UsuarioExiste(string param);
     }
 }

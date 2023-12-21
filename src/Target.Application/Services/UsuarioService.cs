@@ -1,5 +1,5 @@
 using AutoMapper;
-using Target.Application.Dtos;
+using Target.Domain.Dtos;
 using Target.Application.Helpers;
 using Target.Application.Interfaces;
 using Target.Domain.Models;
@@ -11,10 +11,8 @@ namespace Target.Application.Services
     {
         private readonly IUsuarioPersist _usuarioPersist;
         private readonly IGeralPersist _geralPersist;
-        private readonly IMapper _mapper;
-        public UsuarioService(IUsuarioPersist usuarioPersist, IGeralPersist geralPersist, IMapper mapper)
+        public UsuarioService(IUsuarioPersist usuarioPersist, IGeralPersist geralPersist)
         {
-            _mapper = mapper;
             _geralPersist = geralPersist;
             _usuarioPersist = usuarioPersist;
         }
@@ -26,8 +24,7 @@ namespace Target.Application.Services
                 var param = model.Email != "" ? model.Email : model.Telefone != "" ? model.Telefone : null;
                 if(param == null) throw new Exception("Email ou telefone devem ser informados");
             
-                if(await UsuarioExiste(param))
-                    throw new Exception("Usuário já cadastrado");
+                if(await UsuarioExiste(param)) throw new Exception("Usuário já cadastrado");
 
                 var user = new Usuarios
                 {
@@ -48,7 +45,7 @@ namespace Target.Application.Services
             }
             catch (Exception ex)
             {
-                throw new Exception($"Erro ao cadastrar usuário. Erro: {ex.Message}");
+                throw new Exception($"Erro: {ex.Message}");
             }
         }
 
@@ -77,7 +74,7 @@ namespace Target.Application.Services
             }
             catch (Exception ex)
             {
-                throw new Exception($"Erro ao atualizar usuário. Erro: {ex.Message}");
+                throw new Exception($"Erro: {ex.Message}");
             }
         }
 
@@ -185,11 +182,11 @@ namespace Target.Application.Services
             return Task.FromResult(true);
         }
 
-        public Task<TokenValidations> VerificaTokenLogin(UsuarioDto usuario, string tokenLogin)
+        public Task<TokenValidations> VerificaTokenLogin(Usuarios usuario, string tokenLogin)
         {
-            if(usuario.DataAtualizacaoToken.AddMinutes(1) < DateTime.Now) return Task.FromResult(TokenValidations.TokenExpirado);
+            if(usuario.DataAtualizacaoToken.Value.AddMinutes(1) < DateTime.Now) return Task.FromResult(TokenValidations.TokenExpirado);
 
-            else if(VerificaUsuarioBloqueado(usuario.TokenTentativas, usuario.DataAtualizacaoToken)) return Task.FromResult(TokenValidations.UsuarioBloqueado);
+            else if(VerificaUsuarioBloqueado(usuario.TokenTentativas.Value, usuario.DataAtualizacaoToken.Value)) return Task.FromResult(TokenValidations.UsuarioBloqueado);
                 
             else if(usuario.TokenLogin == tokenLogin) return Task.FromResult(TokenValidations.TokenValido);
 
@@ -205,16 +202,14 @@ namespace Target.Application.Services
             return false; // Usuario não bloqueado
         }
 
-        public async Task<UsuarioDto> ObterUsuarioPorIdAsync(int usuarioId)
+        public async Task<Usuarios> ObterUsuarioPorIdAsync(int usuarioId)
         {
             try
             {
                 var usuario = await _usuarioPersist.ObterUsuarioPorIdAsync(usuarioId);
                 if (usuario == null) return null;
 
-                var usuarioDto = _mapper.Map<UsuarioDto>(usuario);
-
-                return usuarioDto;
+                return usuario;
             }
             catch (Exception ex)
             {

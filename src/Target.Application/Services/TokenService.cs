@@ -4,7 +4,7 @@ using System.Text;
 using AutoMapper;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using Target.Application.Dtos;
+using Target.Domain.Dtos;
 using Target.Application.Interfaces;
 using Target.Domain.Models;
 
@@ -24,10 +24,8 @@ namespace Target.Application.Services
             _mapper = mapper;
             _key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["TokenKey"]));
         }
-        public async Task<string> CreateJwtToken(UsuarioDto userUpdateDto)
+        public async Task<string> CreateJwtToken(Usuarios user)
         {
-            var user = _mapper.Map<Usuarios>(userUpdateDto);
-
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString())

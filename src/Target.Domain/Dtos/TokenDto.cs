@@ -1,6 +1,6 @@
 using System;
 
-namespace Target.Application.Dtos
+namespace Target.Domain.Dtos
 {
     public class TokenDto
     {

@@ -1,15 +1,13 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Target.Application.Dtos;
+using Target.Domain.Dtos;
 using Target.Application.Helpers;
 using Target.Application.Interfaces;
-using Target.Domain.Models;
-using Target.Persistence;
 namespace Target.API.Controllers;
 
 [Authorize]
 [ApiController]
-[Route("[controller]")]
+[Route("[controller]/conta")]
 public class TargetAccountController : ControllerBase
 {
     private readonly IUsuarioService _usuarioService;
@@ -43,10 +41,10 @@ public class TargetAccountController : ControllerBase
         try
         {
             var usuario = await _usuarioService.ObterUsuarioCadastradoAsync(model.Email, model.Telefone);
-            if (usuario == null) usuario = await this._usuarioService.AdicionarUsuario(model);
+            if (usuario == null) usuario = await _usuarioService.AdicionarUsuario(model);
 
             var usuarioToken = await _usuarioService.AtualizarTokenLogin(usuario.Id);
-            if (usuarioToken == null) return BadRequest("Erro ao gerar token de login");
+            if (usuarioToken == null) return NotFound("Erro ao gerar token de login");
             //enviar codigo via email ou sms
 
             return Ok(usuario.Id);
@@ -81,8 +79,9 @@ public class TargetAccountController : ControllerBase
             return Ok(
                 new
                 {
-                    nome = usuario.Nome,
-                    token = new {
+                    Id = tokenDto.UsuarioId,
+                    Nome = usuario.Nome,
+                    Token = new {
                        jwt = tokenDesc.Result,
                        tempoExpiracao = "3600"
                     }
@@ -92,37 +91,6 @@ public class TargetAccountController : ControllerBase
         catch (Exception ex)
         {
             throw new Exception($"Erro ao obter token de login. Erro: {ex.Message}");
-        }
-    }
-
-    [HttpPut("atualizar-usuario/{id}")]
-    public async Task<IActionResult> AtualizarUsuario(int id, UsuarioUpdateDto model)
-    {
-        try
-        {
-            var usuario = await _usuarioService.AtualizarUsuario(id, model);
-            if (usuario == null) return BadRequest("Erro ao atualizar usuário");
-
-            return Ok(usuario);
-        }
-        catch (Exception ex)
-        {
-            throw new Exception($"Erro ao atualizar usuário. Erro: {ex.Message}");
-        }
-    }
-
-    [HttpDelete("deletar-usuario/{id}")]
-    public async Task<IActionResult> DeletarUsuario(int id)
-    {
-        try
-        {
-            return await _usuarioService.DeletarUsuario(id) ?
-                Ok("Usuário deletado com sucesso") :
-                BadRequest("Erro ao deletar usuário");
-        }
-        catch (Exception ex)
-        {
-            throw new Exception($"Erro ao deletar usuário. Erro: {ex.Message}");
         }
     }
 }

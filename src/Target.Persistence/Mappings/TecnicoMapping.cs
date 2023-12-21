@@ -27,6 +27,12 @@ namespace Target.Persistence.Mappings
                 .IsRequired()
                 .HasColumnName("USUARIO_ID");
 
+            builder.Property(p => p.Descricao)
+                .HasColumnName("DESCRICAO");
+
+            builder.Property(p => p.Avaliacao)
+                .HasColumnName("AVALIACAO");
+
             builder.ToTable("TECNICO");
         }
     }

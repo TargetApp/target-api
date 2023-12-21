@@ -1,0 +1,108 @@
+using AutoMapper;
+using Target.Domain.Dtos;
+using Target.Application.Interfaces;
+using Target.Domain.Models;
+using Target.Persistence.Interfaces;
+
+namespace Target.Application.Services
+{
+    public class RelatorioService : IRelatorioService
+    {
+        private readonly IRelatorioPersist _relatorioPersistence;
+        private readonly IMapper _mapper;
+        private readonly IGeralPersist _geralPersistence;
+        public RelatorioService(IRelatorioPersist relatorioPersistence, IMapper mapper, IGeralPersist geralPersistence)
+        {
+            _relatorioPersistence = relatorioPersistence;
+            _geralPersistence = geralPersistence;
+            _mapper = mapper;
+        }
+
+        public async Task<Relatorio> AdicionarRelatorioAsync(RelatorioCriarDto relatorioDto, int usuarioId)
+        {
+            try
+            {
+                var relatorio = new Relatorio
+                {
+                    Nome = relatorioDto.Nome,
+                    UsuarioId = usuarioId,
+                    DataCriacao = DateTime.Now,
+                };
+
+                _geralPersistence.Add(relatorio);
+
+                if (await _geralPersistence.SaveChangesAsync())
+                {
+                    var relatorioRetorno = await _relatorioPersistence.ObterRelatorioPorIdAsync(relatorio.Id);
+                    return relatorio;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public async Task<Relatorio> AtualizarRelatorioAsync(int relatorioId, RelatorioDto relatorioDto)
+        {
+            try
+            {
+                var relatorio = await _relatorioPersistence.ObterRelatorioPorIdAsync(relatorioId); 
+                if (relatorio == null) return null;
+                
+                relatorio.Nome = relatorioDto.Nome;
+
+                _geralPersistence.Update(relatorio);
+
+                if (await _geralPersistence.SaveChangesAsync())
+                {
+                    return relatorio;
+                }
+                else
+                {
+                    return null;
+                }   
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public async Task<bool> ExcluirRelatorioAsync(int relatorioId)
+        {
+            try
+            {
+                var relatorio = await _relatorioPersistence.ObterRelatorioPorIdAsync(relatorioId);
+                if (relatorio == null) return false;
+
+                _geralPersistence.Delete(relatorio);
+                return await _geralPersistence.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public async Task<List<RelatorioDto>> ObterRelatoriosPorUsuarioIdAsync(int usuarioId)
+        {
+            try
+            {
+                var relatorios = await _relatorioPersistence.ObterRelatoriosPorUsuarioIdAsync(usuarioId);
+                if (relatorios == null) return null;
+
+                return relatorios;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+    }
+}

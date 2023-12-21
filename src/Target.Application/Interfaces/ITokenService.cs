@@ -1,10 +1,9 @@
-using System;
-using Target.Application.Dtos;
+using Target.Domain.Models;
 
 namespace Target.Application.Interfaces
 {
     public interface ITokenService
     {
-        Task<string> CreateJwtToken(UsuarioDto usuarioDto);
+        Task<string> CreateJwtToken(Usuarios usuarioDto);
     }
 }

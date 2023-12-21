@@ -3,7 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using Target.Persistence;
 
-namespace Target.Application.Config
+namespace Target.API.Config
 {
     public static class TargetDatabaseConfig
     {
