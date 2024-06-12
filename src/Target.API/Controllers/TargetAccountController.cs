@@ -40,7 +40,7 @@ public class TargetAccountController : ControllerBase
     {
         try
         {
-            var usuario = await _usuarioService.ObterUsuarioCadastradoAsync(model.Email, model.Telefone);
+            var usuario = await _usuarioService.ObterUsuarioCadastradoAsync(model.Email, model.Telephone);
             if (usuario == null) usuario = await _usuarioService.AdicionarUsuario(model);
 
             var usuarioToken = await _usuarioService.AtualizarTokenLogin(usuario.Id);
@@ -61,11 +61,11 @@ public class TargetAccountController : ControllerBase
     {
         try
         {
-            var usuario = await _usuarioService.ObterUsuarioPorIdAsync(tokenDto.UsuarioId);
+            var usuario = await _usuarioService.ObterUsuarioPorIdAsync(tokenDto.UserId);
             if(usuario == null) return NotFound("Usuário não encontrado");
 
             var validation = await _usuarioService.VerificaTokenLogin(usuario, tokenDto.Token);
-            _usuarioService.IncrementarTokenTentativas(tokenDto.UsuarioId);
+            _usuarioService.IncrementarTokenTentativas(tokenDto.UserId);
 
             switch(validation)
             {
@@ -79,8 +79,8 @@ public class TargetAccountController : ControllerBase
             return Ok(
                 new
                 {
-                    Id = tokenDto.UsuarioId,
-                    Nome = usuario.Nome,
+                    Id = tokenDto.UserId,
+                    Nome = usuario.Name,
                     Token = new {
                        jwt = tokenDesc.Result,
                        tempoExpiracao = "3600"

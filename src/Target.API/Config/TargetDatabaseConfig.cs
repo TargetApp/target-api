@@ -11,7 +11,7 @@ namespace Target.API.Config
         {
             services.AddDbContext<TargetDbContext>(context =>
             {
-                context.UseSqlite(configuration.GetConnectionString("Default"));
+                context.UseMySql(configuration.GetConnectionString("TargetDatabase"), new MySqlServerVersion(new Version(8, 0, 25)));
             });
             return services;
         }

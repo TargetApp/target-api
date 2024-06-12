@@ -11,21 +11,21 @@ namespace Target.Persistence.Mappings
             builder.HasKey(p => p.Id);
             builder.Property(p => p.Id).ValueGeneratedOnAdd();
 
-            builder.Property(p => p.TipoCafe)
+            builder.Property(p => p.CoffeeType)
                 .IsRequired()
-                .HasColumnName("TIPO_CAFE");
+                .HasColumnName("COFFEE_TYPE");
 
-            builder.Property(p => p.TamanhoPropriedade)
-                .HasColumnName("TAMANHO_PROPRIEDADE");
+            builder.Property(p => p.PropertySize)
+                .HasColumnName("PROPERTY_SIZE");
 
-            builder.Property(p => p.Producao)
-                .HasColumnName("PRODUCAO");
+            builder.Property(p => p.Production)
+                .HasColumnName("PRODUCTION");
 
-            builder.Property(p => p.UsuarioId)
+            builder.Property(p => p.UserId)
                 .IsRequired()
-                .HasColumnName("USUARIO_ID");
+                .HasColumnName("USER_ID");
 
-            builder.ToTable("PRODUTOR");
+            builder.ToTable("PRODUCER");
         }
     }
 }

@@ -7,8 +7,9 @@ namespace Target.Application.Interfaces
     public interface IRelatorioService
     {
         Task<List<RelatorioDto>> ObterRelatoriosPorUsuarioIdAsync(int usuarioId);
-        Task<Relatorio> AdicionarRelatorioAsync(RelatorioCriarDto relatorioDto, int usuarioId);
-        Task<Relatorio> AtualizarRelatorioAsync(int relatorioId, RelatorioDto relatorioDto);
+        Task<RelatorioClassificacao> AdicionarRelatorioAsync(RelatorioCriarDto relatorioDto, int usuarioId);
+        Task<RelatorioClassificacao> AtualizarRelatorioAsync(int relatorioId, RelatorioDto relatorioDto);
         Task<bool> ExcluirRelatorioAsync(int relatorioId);
+        Task<int> InsertClassificationReport(int userId, int imageId, int modelId);
     }
 }

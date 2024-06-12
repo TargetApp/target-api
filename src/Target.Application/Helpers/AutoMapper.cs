@@ -11,7 +11,7 @@ namespace Target.Application.Helpers
             CreateMap<UsuarioDto, Usuarios>().ReverseMap();
             CreateMap<UsuarioLoginDto, Usuarios>().ReverseMap();
             CreateMap<TecnicoDto, Tecnico>().ReverseMap();
-            CreateMap<RelatorioDto, Relatorio>().ReverseMap();
+            CreateMap<RelatorioDto, RelatorioClassificacao>().ReverseMap();
         }
     }
 }

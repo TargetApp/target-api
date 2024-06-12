@@ -4,17 +4,16 @@ namespace Target.Domain.Dtos
 {
     public class UsuarioDto
     {
-        public string TipoCadastro { get; set; }
-        public string TipoConta { get; set; }
-        public string Email { get; set; }
-        public string Telefone { get; set; }
-        public string Nome { get; set; }
-        public string Endereco { get; set; }
         public string Token { get; set; }
+        public int RegisterTypeId { get; set; }
+        public int AccountTypeId { get; set; }
+        public string Name { get; set; }
+        public string Telephone { get; set; }
+        public string Email { get; set; }
+        public DateTime UpdatedAt { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public DateTime TokenUpdatedAt { get; set; }
         public string TokenLogin { get; set; }
-        public int TokenTentativas { get; set; }
-        public DateTime DataAtualizacaoToken { get; set; }
-        public DateTime DataCriacaoUsuario { get; set; }
-        public DateTime DataAtualizacaoUsuario { get; set; }
+        public int TokenAttempts { get; set; }
     }
 }

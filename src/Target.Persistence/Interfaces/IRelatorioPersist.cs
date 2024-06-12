@@ -6,6 +6,6 @@ namespace Target.Persistence.Interfaces
     public interface IRelatorioPersist
     {
         Task<List<RelatorioDto>> ObterRelatoriosPorUsuarioIdAsync(int usuarioId);
-        Task<Relatorio> ObterRelatorioPorIdAsync(int id);
+        Task<RelatorioClassificacao> ObterRelatorioPorIdAsync(int id);
     }
 }

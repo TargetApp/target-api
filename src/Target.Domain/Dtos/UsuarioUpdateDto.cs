@@ -4,11 +4,11 @@ namespace Target.Domain.Dtos
 {
     public class UsuarioUpdateDto
     {
-        public string TipoCadastro { get; set; }
-        public string TipoConta { get; set; }
+        public int RegisterTypeId { get; set; }
+        public int AccountTypeId { get; set; }
         public string Email { get; set; }
-        public string Telefone { get; set; }
-        public string Nome { get; set; }
-        public string Endereco { get; set; }
+        public string Telephone { get; set; }
+        public string Name { get; set; }
+        public string Address { get; set; }
     }
 }

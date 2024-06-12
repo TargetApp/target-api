@@ -21,7 +21,7 @@ namespace Target.Application.Services
         {
             try
             {
-                var param = model.Email != "" ? model.Email : model.Telefone != "" ? model.Telefone : null;
+                var param = model.Email != "" ? model.Email : model.Telephone != "" ? model.Telephone : null;
                 if(param == null) throw new Exception("Email ou telefone devem ser informados");
             
                 if(await UsuarioExiste(param)) throw new Exception("Usuário já cadastrado");
@@ -29,11 +29,11 @@ namespace Target.Application.Services
                 var user = new Usuarios
                 {
                     Email = model.Email,
-                    Telefone = model.Telefone,
-                    TokenTentativas = 0,
-                    DataAtualizacaoToken = DateTime.Now,
-                    DataCriacaoUsuario = DateTime.Now,
-                    DataAtualizacaoUsuario = DateTime.Now
+                    Telephone = model.Telephone,
+                    TokenAttempts = 0,
+                    TokenUpdatedAt = DateTime.Now,
+                    CreatedAt = DateTime.Now,
+                    UpdatedAt = DateTime.Now
                 };
 
                 _geralPersist.Add(user);
@@ -57,12 +57,12 @@ namespace Target.Application.Services
                 if (usuario == null) return null;
 
                 usuario.Email = model.Email;
-                usuario.Nome = model.Nome;
-                usuario.Telefone = model.Telefone;
-                usuario.TipoCadastro = model.TipoCadastro;
-                usuario.TipoConta = model.TipoConta;
-                usuario.Endereco = model.Endereco;
-                usuario.DataAtualizacaoUsuario = DateTime.Now;
+                usuario.Name = model.Name;
+                usuario.Telephone = model.Telephone;
+                usuario.RegisterTypeId = model.RegisterTypeId;
+                usuario.AccountTypeId = model.AccountTypeId;
+                //usuario.Endereco = model.Endereco;
+                usuario.UpdatedAt = DateTime.Now;
                 
                 _geralPersist.Update(usuario);
                 if (await _geralPersist.SaveChangesAsync())
@@ -83,7 +83,7 @@ namespace Target.Application.Services
             try
             {
                 var usuario = await _usuarioPersist.ObterUsuarioPorIdAsync(usuarioId);
-                usuario.TokenTentativas++;
+                usuario.TokenAttempts++;
 
                 _geralPersist.Update(usuario);
                 await _geralPersist.SaveChangesAsync();
@@ -102,7 +102,7 @@ namespace Target.Application.Services
                 var usuario = await _usuarioPersist.ObterUsuarioPorIdAsync(usuarioId);
                 if(usuario is null) return null;
 
-                if(!VerificaUsuarioBloqueado(usuario.TokenTentativas.Value, usuario.DataAtualizacaoToken.Value))
+                if(!VerificaUsuarioBloqueado(usuario.TokenAttempts, usuario.TokenUpdatedAt))
                 {
                     var random = new Random();
                     var caracteres = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
@@ -110,8 +110,8 @@ namespace Target.Application.Services
                                                     .Select(s => s[random.Next(s.Length)]).ToArray());
 
                     usuario.TokenLogin = resultado;
-                    usuario.DataAtualizacaoToken = DateTime.Now;
-                    usuario.TokenTentativas = 0;
+                    usuario.TokenUpdatedAt = DateTime.Now;
+                    usuario.TokenAttempts = 0;
 
                     _geralPersist.Update(usuario);
                 }
@@ -184,9 +184,9 @@ namespace Target.Application.Services
 
         public Task<TokenValidations> VerificaTokenLogin(Usuarios usuario, string tokenLogin)
         {
-            if(usuario.DataAtualizacaoToken.Value.AddMinutes(1) < DateTime.Now) return Task.FromResult(TokenValidations.TokenExpirado);
+            if(usuario.TokenUpdatedAt.AddMinutes(1) < DateTime.Now) return Task.FromResult(TokenValidations.TokenExpirado);
 
-            else if(VerificaUsuarioBloqueado(usuario.TokenTentativas.Value, usuario.DataAtualizacaoToken.Value)) return Task.FromResult(TokenValidations.UsuarioBloqueado);
+            else if(VerificaUsuarioBloqueado(usuario.TokenAttempts, usuario.TokenUpdatedAt)) return Task.FromResult(TokenValidations.UsuarioBloqueado);
                 
             else if(usuario.TokenLogin == tokenLogin) return Task.FromResult(TokenValidations.TokenValido);
 

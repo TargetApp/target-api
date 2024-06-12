@@ -5,14 +5,14 @@ namespace Target.Domain.Dtos
     public class TecnicoDto
     {
         public int Id { get; set; }
-        public string Nome { get; set; }
+        public string Name { get; set; }
         public string Email { get; set; }
-        public string Telefone { get; set; }
-        public string FormacaoProfissional { get; set; }
-        public string AreaAtuacao { get; set; }
-        public string RegistroConselho { get; set; }
-        public string Descricao { get; set; }
-        public string Avaliacao { get; set; }
-        public bool EstaExpandido { get; set; }
+        public string Telephone { get; set; }
+        public string ProfessionalQualification { get; set; }
+        public string OccupationArea { get; set; }
+        public string CouncilRegistration { get; set; }
+        public string Description { get; set; }
+        public string Evaluation { get; set; }
+        public bool IsExpanded { get; set; }
     }
 }

@@ -28,6 +28,8 @@ public static class TargetDependencyInjectionConfig
         services.AddScoped<ITecnicoService, TecnicoService>();
         services.AddScoped<IProdutorService, ProdutorService>();
         services.AddScoped<IRelatorioService, RelatorioService>();
+        services.AddScoped<IQueueService, QueueService>();
+        services.AddScoped<IImagemService, ImagemService>();
 
         services.AddScoped<IUsuarioLogado, AuthUsuarioLogado>();
 

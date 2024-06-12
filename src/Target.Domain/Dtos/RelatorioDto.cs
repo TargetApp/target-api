@@ -4,7 +4,7 @@ namespace Target.Domain.Dtos
 {
     public class RelatorioDto
     {
-        public string Nome { get; set; }
-        public DateTime DataCriacao { get; set; }
+        public string Name { get; set; }
+        public DateTime CreatedAt { get; set; }
     }
 }

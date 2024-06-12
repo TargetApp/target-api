@@ -18,19 +18,19 @@ namespace Target.Persistence.Persistences
         {
             var query = (
                 from tecnico in _context.Tecnico
-                join usuario in _context.Usuarios on tecnico.UsuarioId equals usuario.Id
+                join usuario in _context.Usuarios on tecnico.UserId equals usuario.Id
                 select new TecnicoDto
                 {
                     Id = tecnico.Id,
-                    Nome = usuario.Nome,
+                    Name = usuario.Name,
                     Email = usuario.Email,
-                    Telefone = usuario.Telefone,
-                    FormacaoProfissional = tecnico.FormacaoProfissional,
-                    AreaAtuacao = tecnico.AreaAtuacao,
-                    RegistroConselho = tecnico.RegistroConselho,
-                    Descricao = tecnico.Descricao,
-                    Avaliacao = tecnico.Avaliacao,
-                    EstaExpandido = false
+                    Telephone = usuario.Telephone,
+                    ProfessionalQualification = tecnico.ProfessionalQualification,
+                    OccupationArea = tecnico.OccupationArea,
+                    CouncilRegistration = tecnico.CouncilRegistration,
+                    Description = tecnico.Description,
+                    Evaluation = tecnico.Evaluation,
+                    IsExpanded = false
                 }
             ).AsNoTracking();
             

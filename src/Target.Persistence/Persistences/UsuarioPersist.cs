@@ -17,7 +17,7 @@ namespace Target.Persistence.Persistences
         {
             var query = (
                 from u in _context.Usuarios
-                where u.Email == param || u.Telefone == param
+                where u.Email == param || u.Telephone == param
                 select u
             );
 
@@ -39,7 +39,7 @@ namespace Target.Persistence.Persistences
         {
             var query = (
                 from u in _context.Usuarios
-                where u.Email == email || u.Telefone == telefone
+                where u.Email == email || u.Telephone == telefone
                 select u
             );
 

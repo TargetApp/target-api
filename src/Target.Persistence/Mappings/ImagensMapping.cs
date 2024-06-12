@@ -11,22 +11,18 @@ namespace Target.Persistence.Mappings
             builder.HasKey(p => p.Id);
             builder.Property(p => p.Id).ValueGeneratedOnAdd();
 
-            builder.Property(p => p.Hash)
+            builder.Property(p => p.Filename)
                 .IsRequired()
-                .HasColumnName("HASH");
+                .HasColumnName("FILENAME");
 
-            builder.Property(p => p.RelatorioId)
+            builder.Property(p => p.UploadedAt)
+                .HasColumnName("UPLOADED_AT");
+
+            builder.Property(p => p.UserId)
                 .IsRequired()
-                .HasColumnName("RELATORIO_ID");
+                .HasColumnName("USER_ID");
 
-            builder.Property(p => p.Url)
-                .IsRequired()
-                .HasColumnName("URL");
-
-            builder.Property(p => p.DataCriacao)
-                .HasColumnName("DATA_CRIACAO");
-
-            builder.ToTable("IMAGENS");
+            builder.ToTable("IMAGE");
         }
     }
 }

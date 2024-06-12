@@ -18,15 +18,14 @@ namespace Target.Application.Services
             _mapper = mapper;
         }
 
-        public async Task<Relatorio> AdicionarRelatorioAsync(RelatorioCriarDto relatorioDto, int usuarioId)
+        public async Task<RelatorioClassificacao> AdicionarRelatorioAsync(RelatorioCriarDto relatorioDto, int usuarioId)
         {
             try
             {
-                var relatorio = new Relatorio
+                var relatorio = new RelatorioClassificacao
                 {
-                    Nome = relatorioDto.Nome,
-                    UsuarioId = usuarioId,
-                    DataCriacao = DateTime.Now,
+                    UserId = usuarioId,
+
                 };
 
                 _geralPersistence.Add(relatorio);
@@ -47,14 +46,14 @@ namespace Target.Application.Services
             }
         }
 
-        public async Task<Relatorio> AtualizarRelatorioAsync(int relatorioId, RelatorioDto relatorioDto)
+        public async Task<RelatorioClassificacao> AtualizarRelatorioAsync(int relatorioId, RelatorioDto relatorioDto)
         {
             try
             {
                 var relatorio = await _relatorioPersistence.ObterRelatorioPorIdAsync(relatorioId); 
                 if (relatorio == null) return null;
                 
-                relatorio.Nome = relatorioDto.Nome;
+                //relatorio. = relatorioDto.Name;
 
                 _geralPersistence.Update(relatorio);
 
@@ -88,6 +87,12 @@ namespace Target.Application.Services
                 throw new Exception(ex.Message);
             }
         }
+
+        public Task<int> InsertClassificationReport(int userId, int imageId, int modelId)
+        {
+            throw new NotImplementedException();
+        }
+
 
         public async Task<List<RelatorioDto>> ObterRelatoriosPorUsuarioIdAsync(int usuarioId)
         {

@@ -3,9 +3,9 @@ namespace Target.Domain.Models
     public class Produtor
     {
         public int Id { get; set; }
-        public int UsuarioId { get; set; }
-        public string TipoCafe { get; set; }
-        public int TamanhoPropriedade { get; set; }
-        public int Producao { get; set; }
+        public int UserId { get; set; }
+        public string CoffeeType { get; set; }
+        public int PropertySize { get; set; }
+        public int Production { get; set; }
     }
 }

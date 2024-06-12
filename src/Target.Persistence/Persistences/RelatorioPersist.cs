@@ -14,10 +14,10 @@ namespace Target.Persistence.Persistences
             _context = context;
         }
 
-        public async Task<Relatorio> ObterRelatorioPorIdAsync(int id)
+        public async Task<RelatorioClassificacao> ObterRelatorioPorIdAsync(int id)
         {
             var query = (
-                from relatorio in _context.Relatorio
+                from relatorio in _context.RelatorioClassificacao
                 where relatorio.Id == id
                 select relatorio
             ).AsNoTracking();
@@ -28,11 +28,11 @@ namespace Target.Persistence.Persistences
         public async Task<List<RelatorioDto>> ObterRelatoriosAsync()
         {
             var query = (
-                from relatorio in _context.Relatorio
+                from relatorio in _context.RelatorioClassificacao
                 select new RelatorioDto
                 {
-                    Nome = relatorio.Nome,
-                    DataCriacao = relatorio.DataCriacao,
+                    // Nome = relatorio.,
+                    // DataCriacao = relatorio.DataCriacao,
                 }
             ).AsNoTracking();
 
@@ -42,12 +42,12 @@ namespace Target.Persistence.Persistences
         public async Task<List<RelatorioDto>> ObterRelatoriosPorUsuarioIdAsync(int usuarioId)
         {
             var query = (
-                from relatorio in _context.Relatorio
-                where relatorio.UsuarioId == usuarioId
+                from relatorio in _context.RelatorioClassificacao
+                where relatorio.UserId == usuarioId
                 select new RelatorioDto
                 {
-                    Nome = relatorio.Nome,
-                    DataCriacao = relatorio.DataCriacao,
+                    // Nome = relatorio.Nome,
+                    // DataCriacao = relatorio.DataCriacao,
                 }
             ).AsNoTracking();
 

@@ -23,12 +23,12 @@ namespace Target.Application.Services
             {   
                 var tecnico = new Tecnico
                 {
-                    UsuarioId = usuarioId,
-                    FormacaoProfissional = model.FormacaoProfissional,
-                    AreaAtuacao = model.AreaAtuacao,
-                    RegistroConselho = model.RegistroConselho,
-                    Descricao = model.Descricao,
-                    Avaliacao = model.Avaliacao
+                    UserId = usuarioId,
+                    ProfessionalQualification = model.ProfessionalQualification,
+                    OccupationArea = model.OccupationArea,
+                    CouncilRegistration = model.CouncilRegistration,
+                    Description = model.Description,
+                    Evaluation = model.Evaluation
                 };
                 
                 _geralPersist.Add(tecnico);
@@ -51,11 +51,11 @@ namespace Target.Application.Services
                 var tecnico = await _tecnicoPersist.ObterTecnicoPorIdAsync(id);
                 if (tecnico == null) return null;
 
-                tecnico.FormacaoProfissional = model.FormacaoProfissional;
-                tecnico.AreaAtuacao = model.AreaAtuacao;
-                tecnico.RegistroConselho = model.RegistroConselho;
-                tecnico.Descricao = model.Descricao;
-                tecnico.Avaliacao = model.Avaliacao;
+                tecnico.ProfessionalQualification = model.ProfessionalQualification;
+                tecnico.OccupationArea = model.OccupationArea;
+                tecnico.CouncilRegistration = model.CouncilRegistration;
+                tecnico.Description = model.Description;
+                tecnico.Evaluation = model.OccupationArea;
 
                 _geralPersist.Update(tecnico);
                 if (await _geralPersist.SaveChangesAsync())

@@ -11,29 +11,29 @@ namespace Target.Persistence.Mappings
             builder.HasKey(p => p.Id);
             builder.Property(p => p.Id).ValueGeneratedOnAdd();
 
-            builder.Property(p => p.FormacaoProfissional)
+            builder.Property(p => p.ProfessionalQualification)
                 .IsRequired()
-                .HasColumnName("FORMACAO_PROFISSIONAL");
+                .HasColumnName("PROFESSIONAL_QUALIFICATION");
 
-            builder.Property(p => p.AreaAtuacao)
+            builder.Property(p => p.OccupationArea)
                 .IsRequired()
-                .HasColumnName("AREA_ATUACAO");
+                .HasColumnName("OCCUPATION_AREA");
 
-            builder.Property(p => p.RegistroConselho)
+            builder.Property(p => p.CouncilRegistration)
                 .IsRequired()
-                .HasColumnName("REGISTRO_CONSELHO");
+                .HasColumnName("COUNCIL_REGISTRATION");
 
-            builder.Property(p => p.UsuarioId)
+            builder.Property(p => p.UserId)
                 .IsRequired()
-                .HasColumnName("USUARIO_ID");
+                .HasColumnName("USER_ID");
 
-            builder.Property(p => p.Descricao)
-                .HasColumnName("DESCRICAO");
+            builder.Property(p => p.Description)
+                .HasColumnName("DESCRIPTION");
 
-            builder.Property(p => p.Avaliacao)
-                .HasColumnName("AVALIACAO");
+            builder.Property(p => p.Evaluation)
+                .HasColumnName("EVALUATION");
 
-            builder.ToTable("TECNICO");
+            builder.ToTable("TECHNICIAN");
         }
     }
 }
