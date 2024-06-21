@@ -46,8 +46,14 @@ namespace Target.Persistence.Persistences
                 where relatorio.UserId == usuarioId
                 select new RelatorioDto
                 {
-                    // Nome = relatorio.Nome,
-                    // DataCriacao = relatorio.DataCriacao,
+                    Id = relatorio.Id,
+                    UserId = relatorio.UserId,
+                    ImageId = relatorio.ImageId,
+                    ModelId = relatorio.ModelId,
+                    DiseaseId = relatorio.DiseaseId,
+                    SeverityId = relatorio.DiseaseId,
+                    CreatedAt = relatorio.CreatedAt,
+                    ProcessedAt = relatorio.ProcessedAt
                 }
             ).AsNoTracking();
 

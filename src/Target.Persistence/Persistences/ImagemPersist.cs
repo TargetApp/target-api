@@ -5,9 +5,9 @@ namespace Target.Persistence.Persistences
 {
     public class ImagemPersist : IImagemPersist
     {
-        private readonly TargetDbContext _context;
+        private readonly StorageDbContext _context;
 
-        public ImagemPersist(TargetDbContext context)
+        public ImagemPersist(StorageDbContext context)
         {
             _context = context;
         }

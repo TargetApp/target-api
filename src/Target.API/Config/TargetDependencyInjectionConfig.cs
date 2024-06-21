@@ -21,6 +21,8 @@ public static class TargetDependencyInjectionConfig
         services.AddScoped<IUsuarioPersist, UsuarioPersist>();
         services.AddScoped<IRelatorioPersist, RelatorioPersist>();
         services.AddScoped<IImagemPersist, ImagemPersist>();
+        services.AddScoped<IQueuePersist, QueuePersist>();
+        services.AddScoped<IStoragePersist, StoragePersist>();
 
         // Services Dependency Injection
         services.AddScoped<IUsuarioService, UsuarioService>();

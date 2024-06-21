@@ -25,9 +25,9 @@ namespace Target.API.Controllers
         {
             try
             {
-                var usuarioId = _usuarioLogado.ObterUsuarioId();
+                var usuarioId = 1;
                 var relatorio = await _relatorioService.ObterRelatoriosPorUsuarioIdAsync(usuarioId);
-                if (relatorio == null) return NotFound("Relatório não encontrado.");
+                if (relatorio.Count == 0) return NotFound("Relatório não encontrado.");
 
                 return Ok(relatorio);
             }

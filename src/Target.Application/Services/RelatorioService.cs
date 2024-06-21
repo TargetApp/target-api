@@ -88,9 +88,26 @@ namespace Target.Application.Services
             }
         }
 
-        public Task<int> InsertClassificationReport(int userId, int imageId, int modelId)
+        public async Task<int> InsertClassificationReport(int userId, int imageId, int modelId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var relatorio = new RelatorioClassificacao
+                {
+                    UserId = userId,
+                    ImageId = imageId,
+                    ModelId = modelId
+                };
+
+                _geralPersistence.Add(relatorio);
+                await _geralPersistence.SaveChangesAsync();
+
+                return relatorio.Id;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
 

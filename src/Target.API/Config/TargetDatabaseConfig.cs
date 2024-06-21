@@ -11,8 +11,28 @@ namespace Target.API.Config
         {
             services.AddDbContext<TargetDbContext>(context =>
             {
-                context.UseMySql(configuration.GetConnectionString("TargetDatabase"), new MySqlServerVersion(new Version(8, 0, 25)));
+                context.UseMySql(
+                    configuration.GetConnectionString("Database"),
+                    ServerVersion.AutoDetect(configuration.GetConnectionString("Database"))
+                );
             });
+
+            services.AddDbContext<StorageDbContext>(context =>
+            {
+                context.UseMySql(
+                    configuration.GetConnectionString("Storage"),
+                    ServerVersion.AutoDetect(configuration.GetConnectionString("Storage"))
+                );
+            });
+
+            services.AddDbContext<QueueDbContext>(context =>
+            {
+                context.UseMySql(
+                    configuration.GetConnectionString("Queue"),
+                    ServerVersion.AutoDetect(configuration.GetConnectionString("Queue"))
+                );
+            });
+
             return services;
         }
     }

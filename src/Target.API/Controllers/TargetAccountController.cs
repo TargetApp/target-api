@@ -47,7 +47,9 @@ public class TargetAccountController : ControllerBase
             if (usuarioToken == null) return NotFound("Erro ao gerar token de login");
             //enviar codigo via email ou sms
 
-            return Ok(usuario.Id);
+            return Ok(new {
+                UserId = usuario.Id,
+            });
         }
         catch (Exception ex)
         {
@@ -65,7 +67,7 @@ public class TargetAccountController : ControllerBase
             if(usuario == null) return NotFound("Usuário não encontrado");
 
             var validation = await _usuarioService.VerificaTokenLogin(usuario, tokenDto.Token);
-            _usuarioService.IncrementarTokenTentativas(tokenDto.UserId);
+            _usuarioService.IncrementarTokenTentativas(tokenDto.UserId, usuario);
 
             switch(validation)
             {

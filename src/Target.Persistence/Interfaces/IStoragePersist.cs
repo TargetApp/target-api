@@ -1,6 +1,6 @@
 namespace Target.Persistence.Interfaces;
 
-public interface IQueuePersist
+public interface IStoragePersist
 {
     void Add<T>(T entity) where T: class;
     void Update<T>(T entity) where T: class;

@@ -1,6 +1,5 @@
 using Microsoft.EntityFrameworkCore;
 using Target.Domain.Models;
-using Target.Persistence.Mappings;
 
 namespace Target.Persistence
 {
@@ -13,7 +12,7 @@ namespace Target.Persistence
         public DbSet<Usuarios> Usuarios { get; set; }
         public DbSet<Tecnico> Tecnico { get; set; }
         public DbSet<Produtor> Produtor { get; set; } 
-        // public DbSet<ImageStorage> ImageStorage { get; set; }
+        public DbSet<ImageStorage> ImageStorage { get; set; }
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

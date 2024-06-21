@@ -24,19 +24,15 @@ namespace Target.Persistence.Mappings
                 .HasColumnName("MODEL_ID");
 
             builder.Property(p => p.DiseaseId)
-                .IsRequired()
                 .HasColumnName("DISEASE_ID");
             
             builder.Property(p => p.SeverityId)
-                .IsRequired()
                 .HasColumnName("SEVERITY_ID");
 
             builder.Property(p => p.CreatedAt)
-                .IsRequired()
                 .HasColumnName("CREATED_AT");
 
             builder.Property(p => p.ProcessedAt)
-                .IsRequired()
                 .HasColumnName("PROCESSED_AT");
 
             builder.ToTable("CLASSIFICATION_REPORT");
