@@ -7,7 +7,7 @@ using Target.Application.Interfaces;
 
 namespace Target.API.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [ApiController]
     [Route("[controller]/relatorio")]
     public class TargetRelatorioController : ControllerBase
@@ -28,6 +28,22 @@ namespace Target.API.Controllers
                 var usuarioId = 1;
                 var relatorio = await _relatorioService.ObterRelatoriosPorUsuarioIdAsync(usuarioId);
                 if (relatorio.Count == 0) return NotFound("Relatório não encontrado.");
+
+                return Ok(relatorio);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet("{relatorioId}")]
+        public async Task<IActionResult> ObterRelatorioPorId(int relatorioId)
+        {
+            try
+            {
+                var relatorio = await _relatorioService.ObterRelatorioPorIdAsync(relatorioId);
+                if (relatorio == null) return NotFound("Relatório não encontrado.");
 
                 return Ok(relatorio);
             }

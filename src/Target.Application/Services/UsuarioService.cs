@@ -35,8 +35,6 @@ namespace Target.Application.Services
                     Telephone = model.Telephone,
                     TokenAttempts = 0,
                     TokenUpdatedAt = DateTime.Now,
-                    CreatedAt = DateTime.Now,
-                    UpdatedAt = DateTime.Now
                 };
 
                 _geralPersist.Add(user);

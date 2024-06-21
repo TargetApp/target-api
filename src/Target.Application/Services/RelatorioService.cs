@@ -96,7 +96,8 @@ namespace Target.Application.Services
                 {
                     UserId = userId,
                     ImageId = imageId,
-                    ModelId = modelId
+                    ModelId = modelId,
+                    CreatedAt = DateTime.Now
                 };
 
                 _geralPersistence.Add(relatorio);
@@ -110,6 +111,28 @@ namespace Target.Application.Services
             }
         }
 
+        public async Task<RelatorioDto> ObterRelatorioPorIdAsync(int relatorioId)
+        {
+            try
+            {
+                var relatorio = await _relatorioPersistence.ObterRelatorioPorIdAsync(relatorioId);
+                var relatorioDto = new RelatorioDto()
+                {
+                    Id = relatorio.Id,
+                    UserId = relatorio.UserId,
+                    ImageId = relatorio.ImageId,
+                    ModelId = relatorio.ModelId,
+                    DiseaseId = relatorio.DiseaseId,
+                    SeverityId = relatorio.SeverityId,
+                };
+
+                return relatorioDto;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
 
         public async Task<List<RelatorioDto>> ObterRelatoriosPorUsuarioIdAsync(int usuarioId)
         {

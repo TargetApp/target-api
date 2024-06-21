@@ -52,8 +52,6 @@ namespace Target.Persistence.Persistences
                     ModelId = relatorio.ModelId,
                     DiseaseId = relatorio.DiseaseId,
                     SeverityId = relatorio.DiseaseId,
-                    CreatedAt = relatorio.CreatedAt,
-                    ProcessedAt = relatorio.ProcessedAt
                 }
             ).AsNoTracking();
 
