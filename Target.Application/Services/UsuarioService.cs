@@ -21,11 +21,6 @@ namespace Target.Application.Services
         {
             try
             {
-                var param = model.Email != "" ? model.Email : model.Telephone != "" ? model.Telephone : null;
-                if(param == null) throw new Exception("Email ou telefone devem ser informados");
-            
-                if(await UsuarioExiste(param)) throw new Exception("Usuário já cadastrado");
-
                 var user = new Usuarios
                 {
                     Name = "",
@@ -35,6 +30,7 @@ namespace Target.Application.Services
                     Telephone = model.Telephone,
                     TokenAttempts = 0,
                     TokenUpdatedAt = DateTime.Now,
+                    CreatedAt = DateTime.Now
                 };
 
                 _geralPersist.Add(user);
@@ -62,7 +58,6 @@ namespace Target.Application.Services
                 usuario.Telephone = model.Telephone;
                 usuario.RegisterTypeId = model.RegisterTypeId;
                 usuario.AccountTypeId = model.AccountTypeId;
-                //usuario.Endereco = model.Endereco;
                 usuario.UpdatedAt = DateTime.Now;
                 
                 _geralPersist.Update(usuario);
@@ -79,7 +74,7 @@ namespace Target.Application.Services
             }
         }
 
-        public async void IncrementarTokenTentativas(int usuarioId, Usuarios usuario)
+        public async Task IncrementarTokenTentativas(int usuarioId, Usuarios usuario)
         {
             try
             {
@@ -95,13 +90,25 @@ namespace Target.Application.Services
 
         }
 
-        public async Task<Usuarios> AtualizarTokenLogin(int usuarioId)
+        public async Task LimparTokenTentativas(Usuarios usuario)
         {
             try
             {
-                var usuario = await _usuarioPersist.ObterUsuarioPorIdAsync(usuarioId);
-                if(usuario == null) return null;
+                usuario.TokenAttempts = 0;
 
+                _geralPersist.Update(usuario);
+                await _geralPersist.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Erro ao limpar token de tentativas. Erro: {ex.Message}");
+            }
+        }
+
+        public async Task<Usuarios> AtualizarTokenLogin(Usuarios usuario)
+        {
+            try
+            {
                 if(!VerificaUsuarioBloqueado(usuario.TokenAttempts.Value, usuario.TokenUpdatedAt.Value))
                 {
                     var random = new Random();
@@ -111,7 +118,6 @@ namespace Target.Application.Services
 
                     usuario.TokenLogin = resultado;
                     usuario.TokenUpdatedAt = DateTime.Now;
-                    usuario.TokenAttempts = 0;
 
                     _geralPersist.Update(usuario);
                 }
@@ -159,27 +165,18 @@ namespace Target.Application.Services
             }
         }
 
-        public async Task<Usuarios> ObterUsuarioCadastradoAsync(string email, string telefone)
+        public async Task<Usuarios> ObterUsuarioCadastradoAsync(UsuarioCadastroDto model)
         {
             try
             {
-                var usuario = await _usuarioPersist.ObterUsuarioCadastradoAsync(email, telefone);
-                if (usuario == null) return null;
-
-                return usuario;
+                if(!string.IsNullOrEmpty(model.Telephone)) return await _usuarioPersist.ObterUsuarioCadastradoByTelephoneAsync(model.Telephone);
+                else if (!string.IsNullOrEmpty(model.Email)) return await _usuarioPersist.ObterUsuarioCadastradoByEmailAsync(model.Email);
+                else throw new Exception("Email ou telefone devem ser informados");                
             }
             catch (Exception ex)
             {
                 throw new Exception($"Erro ao obter usuario cadastrado. Erro: {ex.Message}");
             }
-        }
-
-        public Task<bool> UsuarioExiste(string param)
-        {
-            var usuario = _usuarioPersist.ObterUsuarioParametroAsync(param);
-            if (usuario.Result == null) return Task.FromResult(false);
-
-            return Task.FromResult(true);
         }
 
         public async Task<TokenValidations> VerificaTokenLogin(Usuarios usuario, string tokenLogin)
@@ -206,10 +203,7 @@ namespace Target.Application.Services
         {
             try
             {
-                var usuario = await _usuarioPersist.ObterUsuarioPorIdAsync(usuarioId);
-                if (usuario == null) return null;
-
-                return usuario;
+                return await _usuarioPersist.ObterUsuarioPorIdAsync(usuarioId);
             }
             catch (Exception ex)
             {

@@ -6,7 +6,7 @@ using IcmPortal.Core.Dominio.Interfaces;
 
 namespace Target.API.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [ApiController]
     [Route("[controller]/tecnico")]
     public class TargetTecnicoController : ControllerBase

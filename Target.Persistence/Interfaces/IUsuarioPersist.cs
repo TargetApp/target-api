@@ -6,6 +6,7 @@ namespace Target.Persistence.Interfaces
     {
         Task<Usuarios> ObterUsuarioParametroAsync(string param);
         Task<Usuarios> ObterUsuarioPorIdAsync(int usuarioId);
-        Task<Usuarios> ObterUsuarioCadastradoAsync(string email, string telefone);
+        Task<Usuarios> ObterUsuarioCadastradoByEmailAsync(string email);
+        Task<Usuarios> ObterUsuarioCadastradoByTelephoneAsync(string telephone);
     }
 }

@@ -7,7 +7,7 @@ using Target.Application.Interfaces;
 
 namespace Target.API.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [ApiController]
     [Route("[controller]/relatorio")]
     public class TargetRelatorioController : ControllerBase

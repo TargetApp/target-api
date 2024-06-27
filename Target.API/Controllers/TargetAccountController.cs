@@ -40,10 +40,10 @@ public class TargetAccountController : ControllerBase
     {
         try
         {
-            var usuario = await _usuarioService.ObterUsuarioCadastradoAsync(model.Email, model.Telephone);
+            var usuario = await _usuarioService.ObterUsuarioCadastradoAsync(model);
             if (usuario == null) usuario = await _usuarioService.AdicionarUsuario(model);
 
-            var usuarioToken = await _usuarioService.AtualizarTokenLogin(usuario.Id);
+            var usuarioToken = await _usuarioService.AtualizarTokenLogin(usuario);
             if (usuarioToken == null) return NotFound("Erro ao gerar token de login");
             //enviar codigo via email ou sms
 
@@ -67,26 +67,29 @@ public class TargetAccountController : ControllerBase
             if(usuario == null) return NotFound("Usuário não encontrado");
 
             var validation = await _usuarioService.VerificaTokenLogin(usuario, tokenDto.Token);
-            _usuarioService.IncrementarTokenTentativas(tokenDto.UserId, usuario);
-
             switch(validation)
             {
                 case TokenValidations.TokenExpirado : return BadRequest("Token expirado");
-                case TokenValidations.TokenInvalido : return BadRequest("Token inválido");
-                case TokenValidations.TokenValido : break;
+                case TokenValidations.TokenInvalido : {
+                    await _usuarioService.IncrementarTokenTentativas(tokenDto.UserId, usuario);
+                    return BadRequest("Token inválido");
+                }
+                case TokenValidations.TokenValido : {
+                    await _usuarioService.LimparTokenTentativas(usuario);
+                    break;
+                };
             }       
 
             var tokenDesc = _tokenService.CreateJwtToken(usuario);  
+            //await _usuarioService.LimparTokenTentativas(usuario);
             
             return Ok(
                 new
                 {
-                    Id = tokenDto.UserId,
-                    Name = usuario.Name,
-                    Token = new {
-                       jwt = tokenDesc.Result,
-                       tempoExpiracao = "3600"
-                    }
+                    tokenDto.UserId,
+                    usuario.Name,
+                    Token = tokenDesc.Result,
+                    ExpiresIn = 3600
                 }
             );
         }

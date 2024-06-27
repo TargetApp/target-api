@@ -35,11 +35,22 @@ namespace Target.Persistence.Persistences
             return await query.FirstOrDefaultAsync();
         }
 
-        public async Task<Usuarios> ObterUsuarioCadastradoAsync(string email, string telefone)
+        public async Task<Usuarios> ObterUsuarioCadastradoByEmailAsync(string email)
         {
             var query = (
                 from u in _context.Usuarios
-                where u.Email == email || u.Telephone == telefone
+                where u.Email == email
+                select u
+            );
+
+            return await query.FirstOrDefaultAsync();
+        }
+
+        public async Task<Usuarios> ObterUsuarioCadastradoByTelephoneAsync(string telephone)
+        {
+            var query = (
+                from u in _context.Usuarios
+                where u.Telephone == telephone
                 select u
             );
 
