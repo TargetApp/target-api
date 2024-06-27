@@ -44,4 +44,4 @@ jobs:
             docker rm target-api || true
             docker rmi target-api:latest || true
             docker load -i /home/${{ secrets.VPS_USER }}/target-api.tar
-            docker run -d -p 7130:7130 target-api
+            docker run -d -p 7130:80 target-api
