@@ -29,7 +29,7 @@ public class TargetImagemController : ControllerBase
     {
         try
         {
-            var userId = 4;
+            var userId = 1;
 
             var imagemId = await _imagemService.InsertImageAsync(imagemDto.FormFile.FileName, userId);
             if (imagemId == null) return NotFound("Imagem não inserida.");
