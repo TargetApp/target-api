@@ -9,6 +9,8 @@ namespace Target.Persistence
 
         public DbSet<Imagens> Imagens { get; set; }
         public DbSet<RelatorioClassificacao> RelatorioClassificacao { get; set; }
+        public DbSet<Doenca> Doencas { get; set; }
+        public DbSet<Severidade> Severidade { get; set; }
         public DbSet<Usuarios> Usuarios { get; set; }
         public DbSet<Tecnico> Tecnico { get; set; }
         public DbSet<Produtor> Produtor { get; set; } 

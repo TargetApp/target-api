@@ -8,7 +8,9 @@ namespace Target.Domain.Dtos
         public int UserId { get; set; }
         public int ImageId { get; set; }
         public int ModelId { get; set; }
-        public int? DiseaseId { get; set; }
-        public int? SeverityId { get; set; }
+        public string? DiseaseName { get; set; }
+        public string? Description { get; set; }
+        public string? Prevention { get; set; }
+        public string? Severity { get; set; }
     }
 }

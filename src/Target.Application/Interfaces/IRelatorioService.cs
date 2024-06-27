@@ -9,7 +9,7 @@ namespace Target.Application.Interfaces
         Task<List<RelatorioDto>> ObterRelatoriosPorUsuarioIdAsync(int usuarioId);
         Task<RelatorioDto> ObterRelatorioPorIdAsync(int relatorioId);
         Task<RelatorioClassificacao> AdicionarRelatorioAsync(RelatorioCriarDto relatorioDto, int usuarioId);
-        Task<RelatorioClassificacao> AtualizarRelatorioAsync(int relatorioId, RelatorioDto relatorioDto);
+        Task<RelatorioDto> AtualizarRelatorioAsync(int relatorioId, RelatorioDto relatorioDto);
         Task<bool> ExcluirRelatorioAsync(int relatorioId);
         Task<int> InsertClassificationReport(int userId, int imageId, int modelId);
     }

@@ -46,11 +46,11 @@ namespace Target.Application.Services
             }
         }
 
-        public async Task<RelatorioClassificacao> AtualizarRelatorioAsync(int relatorioId, RelatorioDto relatorioDto)
+        public async Task<RelatorioDto> AtualizarRelatorioAsync(int relatorioId, RelatorioDto relatorioDto)
         {
             try
             {
-                var relatorio = await _relatorioPersistence.ObterRelatorioPorIdAsync(relatorioId); 
+                var relatorio = await _relatorioPersistence.ObterRelatorioPorIdAsync(relatorioId);
                 if (relatorio == null) return null;
                 
                 //relatorio. = relatorioDto.Name;
@@ -115,18 +115,7 @@ namespace Target.Application.Services
         {
             try
             {
-                var relatorio = await _relatorioPersistence.ObterRelatorioPorIdAsync(relatorioId);
-                var relatorioDto = new RelatorioDto()
-                {
-                    Id = relatorio.Id,
-                    UserId = relatorio.UserId,
-                    ImageId = relatorio.ImageId,
-                    ModelId = relatorio.ModelId,
-                    DiseaseId = relatorio.DiseaseId,
-                    SeverityId = relatorio.SeverityId,
-                };
-
-                return relatorioDto;
+                return await _relatorioPersistence.ObterRelatorioPorIdAsync(relatorioId);
             }
             catch (Exception ex)
             {

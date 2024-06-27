@@ -53,7 +53,7 @@ public class TargetAccountController : ControllerBase
         }
         catch (Exception ex)
         {
-            throw new Exception($"Erro ao realizar login. Erro: {ex.Message}");
+            return BadRequest($"Erro ao realizar login. {ex.Message}");
         }
     }
 
@@ -82,7 +82,7 @@ public class TargetAccountController : ControllerBase
                 new
                 {
                     Id = tokenDto.UserId,
-                    Nome = usuario.Name,
+                    Name = usuario.Name,
                     Token = new {
                        jwt = tokenDesc.Result,
                        tempoExpiracao = "3600"
@@ -92,7 +92,7 @@ public class TargetAccountController : ControllerBase
         }
         catch (Exception ex)
         {
-            throw new Exception($"Erro ao obter token de login. Erro: {ex.Message}");
+            return BadRequest($"Erro ao obter token de login. Erro: {ex.Message}");
         }
     }
 }

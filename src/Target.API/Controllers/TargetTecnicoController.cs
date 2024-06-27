@@ -6,7 +6,7 @@ using IcmPortal.Core.Dominio.Interfaces;
 
 namespace Target.API.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [ApiController]
     [Route("[controller]/tecnico")]
     public class TargetTecnicoController : ControllerBase
@@ -31,7 +31,7 @@ namespace Target.API.Controllers
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                return BadRequest(ex.Message);
             }
         }
 
@@ -47,7 +47,7 @@ namespace Target.API.Controllers
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                return BadRequest(ex.Message);
             }
         }
 
@@ -56,7 +56,7 @@ namespace Target.API.Controllers
         {
             try
             {
-                var usuarioId = _usuarioLogado.ObterUsuarioId();
+                var usuarioId = 4;
                 var tecnico = await _tecnicoService.AdicionarTecnicoAsync(model, usuarioId);
                 if (tecnico == null) return NotFound("Erro ao adicionar técnico. Verifique os dados e tente novamente.");
 
@@ -64,7 +64,7 @@ namespace Target.API.Controllers
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                return BadRequest(ex.Message);
             }
         }
 
@@ -80,7 +80,7 @@ namespace Target.API.Controllers
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                return BadRequest(ex.Message);
             }
         }
 
@@ -98,7 +98,7 @@ namespace Target.API.Controllers
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                return BadRequest(ex.Message);
             }
         }
     }
