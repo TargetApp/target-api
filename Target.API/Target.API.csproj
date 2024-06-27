@@ -17,6 +17,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Target.Application\Target.Application.csproj" />
+    <ProjectReference Include="..\Target.Domain\Target.Domain.csproj" />
+    <ProjectReference Include="..\Target.Persistence\Target.Persistence.csproj" />
   </ItemGroup>
 
 </Project>

@@ -58,8 +58,5 @@ Thumbs.db
 
 ##
 
-/**/appsettings.Development.json
-/**/appsettings.development.json
 /**/readme_comandos.md
-/src/**/appsettings.Development.json
 .vscode/launch.json
