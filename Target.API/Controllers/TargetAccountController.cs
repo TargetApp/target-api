@@ -40,6 +40,7 @@ public class TargetAccountController : ControllerBase
     {
         try
         {
+
             var usuario = await _usuarioService.ObterUsuarioCadastradoAsync(model);
             if (usuario == null) usuario = await _usuarioService.AdicionarUsuario(model);
 
@@ -67,6 +68,7 @@ public class TargetAccountController : ControllerBase
             if(usuario == null) return NotFound("Usuário não encontrado");
 
             var validation = await _usuarioService.VerificaTokenLogin(usuario, tokenDto.Token);
+
             switch(validation)
             {
                 case TokenValidations.TokenExpirado : return BadRequest("Token expirado");
@@ -81,7 +83,6 @@ public class TargetAccountController : ControllerBase
             }       
 
             var tokenDesc = _tokenService.CreateJwtToken(usuario);  
-            //await _usuarioService.LimparTokenTentativas(usuario);
             
             return Ok(
                 new

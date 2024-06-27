@@ -90,6 +90,7 @@ namespace Target.Application.Services
 
         }
 
+
         public async Task LimparTokenTentativas(Usuarios usuario)
         {
             try
@@ -109,6 +110,9 @@ namespace Target.Application.Services
         {
             try
             {
+                var usuario = await _usuarioPersist.ObterUsuarioPorIdAsync(usuarioId);
+                if(usuario == null) return null;
+
                 if(!VerificaUsuarioBloqueado(usuario.TokenAttempts.Value, usuario.TokenUpdatedAt.Value))
                 {
                     var random = new Random();

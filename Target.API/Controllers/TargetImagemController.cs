@@ -7,6 +7,7 @@ using Target.Domain.Enum;
 
 namespace Target.API.Controllers;
 
+
 [Authorize]
 [ApiController]
 [Route("[controller]/imagem")]
